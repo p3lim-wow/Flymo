@@ -4,5 +4,8 @@
 ## Title: Flymo
 ## Notes: Tooltips ahoy!
 
+## LoadManagers: AddonLoader
+## X-LoadOn-Always: delayed
+
 Flymo.lua
 
