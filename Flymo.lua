@@ -1,4 +1,4 @@
-local FONT = [=[Interface\AddOns\Flymo\media\semplice.ttf]=]
+local FONT = [=[Interface\AddOns\Flymo\semplice.ttf]=]
 local TEXTURE = [=[Interface\Tooltips\UI-Tooltip-Background]=]
 
 local levelString = string.gsub(TOOLTIP_UNIT_LEVEL, '%%s', '.+')
