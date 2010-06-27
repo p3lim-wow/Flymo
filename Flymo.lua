@@ -1,4 +1,5 @@
 local FONT = [=[Interface\AddOns\Flymo\media\semplice.ttf]=]
+local TEXTURE = [=[Interface\Tooltips\UI-Tooltip-Background]=]
 
 local levelString = string.gsub(TOOLTIP_UNIT_LEVEL, '%%s', '.+')
 
@@ -70,7 +71,7 @@ GameTooltip:SetScript('OnTooltipSetUnit', function(self)
 end)
 
 GameTooltipStatusBar:SetHeight(3)
-GameTooltipStatusBar:SetStatusBarTexture([=[Interface\AddOns\Flymo\media\minimalist]=])
+GameTooltipStatusBar:SetStatusBarTexture(TEXTURE)
 
 GameTooltipStatusBar.bg = GameTooltipStatusBar:CreateTexture(nil, 'BACKGROUND')
 GameTooltipStatusBar.bg:SetAllPoints(GameTooltipStatusBar)
@@ -83,7 +84,7 @@ for _, tooltip in pairs({
 	ShoppingTooltip2,
 	ShoppingTooltip3
 }) do
-	tooltip:SetBackdrop({bgFile = [=[Interface\Tooltips\UI-Tooltip-Background]=]})
+	tooltip:SetBackdrop({bgFile = TEXTURE})
 	tooltip:HookScript('OnShow', function(self)
 		self:SetBackdropColor(0, 0, 0)
 
