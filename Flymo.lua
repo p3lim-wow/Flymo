@@ -10,40 +10,33 @@ local classification = {
 	elite = '+|r',
 }
 
-local function Hex(color)
-	return string.format('|cff%02x%02x%02x', color.r * 255, color.g * 255, color.b * 255)
-end
-
-local function GetColor(unit)
-	if(UnitIsPlayer(unit) and not UnitHasVehicleUI(unit)) then
-		local _, class = UnitClass(unit)
-		local color = RAID_CLASS_COLORS[class]
-		return Hex(color), color
-	else
-		local color = FACTION_BAR_COLORS[UnitReaction(unit, 'player')]
-		return Hex(color), color
-	end
-end
-
 GameTooltip:SetScript('OnTooltipSetUnit', function(self)
 	local _, unit = self:GetUnit()
 	if(not unit) then return end
 
-	local hexed, pure = GetColor(unit)
 	local raidicon = GetRaidTargetIndex(unit)
 	local guild = GetGuildInfo(unit)
 
-	_G['GameTooltipTextLeft1']:SetFormattedText('%s%s%s|r', raidicon and ICON_LIST[raidicon]..'22|t' or '', GetColor(unit), GetUnitName(unit))
+	local color
+	if(UnitIsPlayer(unit) and not UnitHasVehicleUI(unit)) then
+		local _, class = UnitClass(unit)
+		color = RAID_CLASS_COLORS[class]
+	else
+		color = FACTION_BAR_COLORS[UnitReaction(unit, 'player')]
+	end
+
+	GameTooltipTextLeft1:SetFormattedText('%s%s%s', raidicon and ICON_LIST[raidicon]..'22|t' or '', ConvertRGBtoColorString(color), GetUnitName(unit))
 
 	for index = 2, self:NumLines() do
 		local text = _G['GameTooltipTextLeft'..index]
+
 		if(guild and string.find(text:GetText(), guild)) then
 			text:SetFormattedText('|cff%s<%s>|r', UnitIsInMyGuild(unit) and '0090ff' or '00ff10', guild)
 		end
 
 		if(string.find(text:GetText(), levelString)) then
 			local level = UnitLevel(unit)
-			local color = Hex(GetQuestDifficultyColor(UnitIsFriend(unit, 'player') and UnitLevel('player') or level > 0 and level or 99))
+			local color = ConvertRGBtoColorString(GetQuestDifficultyColor(UnitIsFriend(unit, 'player') and UnitLevel('player') or level > 0 and level or 99))
 
 			if(UnitIsPlayer(unit)) then
 				text:SetFormattedText('%s%s|r %s %s', color, level, UnitRace(unit),
@@ -64,7 +57,7 @@ GameTooltip:SetScript('OnTooltipSetUnit', function(self)
 		GameTooltipStatusBar:ClearAllPoints()
 		GameTooltipStatusBar:SetPoint('BOTTOMLEFT', 1, 1)
 		GameTooltipStatusBar:SetPoint('BOTTOMRIGHT', -1, 1)
-		GameTooltipStatusBar:SetStatusBarColor(pure.r, pure.g, pure.b)
+		GameTooltipStatusBar:SetStatusBarColor(color.r, color.g, color.b)
 	end
 
 	GameTooltip:Show()

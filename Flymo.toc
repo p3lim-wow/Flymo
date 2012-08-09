@@ -1,11 +1,7 @@
-## Interface: 30300
+## Interface: 40300
 ## Author: p3lim
 ## Version: Alpha
 ## Title: Flymo
 ## Notes: Tooltips ahoy!
 
-## LoadManagers: AddonLoader
-## X-LoadOn-Always: delayed
-
 Flymo.lua
-
