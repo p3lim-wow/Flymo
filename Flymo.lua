@@ -82,13 +82,15 @@ GameTooltipStatusBar.bg:SetAllPoints(GameTooltipStatusBar)
 GameTooltipStatusBar.bg:SetTexture(0.4, 0.4, 0.4)
 
 local function Update(self)
-	self:SetBackdropColor(0, 0, 0)
-
 	local name = self:GetName()
 	for index = 1, self:NumLines() do
 		_G[name .. 'TextLeft' .. index]:SetFont(FONT, 8, 'OUTLINEMONOCHROME')
 		_G[name .. 'TextRight' .. index]:SetFont(FONT, 8, 'OUTLINEMONOCHROME')
 	end
+end
+
+local function Backdrop(self)
+	self:SetBackdropColor(0, 0, 0)
 end
 
 for _, tooltip in pairs({
@@ -101,4 +103,5 @@ for _, tooltip in pairs({
 }) do
 	tooltip:SetBackdrop({bgFile = TEXTURE})
 	tooltip:HookScript('OnSizeChanged', Update)
+	tooltip:HookScript('OnUpdate', Backdrop)
 end
