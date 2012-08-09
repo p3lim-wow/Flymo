@@ -3,7 +3,7 @@ local TEXTURE = [=[Interface\Tooltips\UI-Tooltip-Background]=]
 
 local levelString = string.gsub(TOOLTIP_UNIT_LEVEL, '%%s', '.+')
 
-local classification = {
+local classifications = {
 	worldboss = ' Boss|r',
 	rareelite = '+|r Rare',
 	rare = '|r Rare',
@@ -27,28 +27,29 @@ GameTooltip:SetScript('OnTooltipSetUnit', function(self)
 	GameTooltipTextLeft1:SetFormattedText('%s%s', ConvertRGBtoColorString(color), GetUnitName(unit))
 
 	for index = 2, self:NumLines() do
-		local text = _G['GameTooltipTextLeft'..index]
+		local line = _G['GameTooltipTextLeft' .. index]
+		local text = line:GetText()
 
-		if(guild and string.find(text:GetText(), guild)) then
-			text:SetFormattedText('|cff%s<%s>|r', UnitIsInMyGuild(unit) and '0090ff' or '00ff10', guild)
+		if(guild and string.find(text, guild)) then
+			line:SetFormattedText('|cff%s<%s>|r', UnitIsInMyGuild(unit) and '0090ff' or '00ff10', guild)
 		end
 
-		if(string.find(text:GetText(), levelString)) then
+		if(string.find(text, levelString)) then
 			local level = UnitLevel(unit)
 			local color = ConvertRGBtoColorString(GetQuestDifficultyColor(UnitIsFriend(unit, 'player') and UnitLevel('player') or level > 0 and level or 99))
 
 			if(UnitIsPlayer(unit)) then
-				text:SetFormattedText('%s%s|r %s %s', color, level, UnitRace(unit),
+				line:SetFormattedText('%s%s|r %s %s', color, level, UnitRace(unit),
 					UnitIsAFK(unit) and CHAT_FLAG_AFK or
 					UnitIsDND(unit) and CHAT_FLAG_DND or
 					not UnitIsConnected(unit) and '<DC>' or '')
 			else
-				text:SetFormattedText('%s%s%s|r %s', color, level > 0 and level or '??', classification[UnitClassification(unit)] or '', UnitCreatureFamily(unit) or UnitCreatureType(unit) or '')
+				line:SetFormattedText('%s%s%s|r %s', color, level > 0 and level or '??', classifications[UnitClassification(unit)] or '', UnitCreatureFamily(unit) or UnitCreatureType(unit) or '')
 			end
 		end
 
-		if(string.find(text:GetText(), PVP)) then
-			text:Hide()
+		if(string.find(text, PVP)) then
+			line:Hide()
 		end
 	end
 
