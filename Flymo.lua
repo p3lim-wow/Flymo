@@ -17,8 +17,6 @@ GameTooltip:SetScript('OnTooltipSetUnit', function(self)
 	local _, unit = self:GetUnit()
 	if(not unit) then return end
 
-	local guild = GetGuildInfo(unit)
-
 	local color
 	if(UnitIsPlayer(unit) and not UnitHasVehicleUI(unit)) then
 		local _, class = UnitClass(unit)
@@ -29,6 +27,7 @@ GameTooltip:SetScript('OnTooltipSetUnit', function(self)
 
 	GameTooltipTextLeft1:SetFormattedText('%s%s', ConvertRGBtoColorString(color), GetUnitName(unit))
 
+	local guild = GetGuildInfo(unit)
 	for index = 2, self:NumLines() do
 		local line = _G['GameTooltipTextLeft' .. index]
 		local text = line:GetText()
@@ -42,10 +41,7 @@ GameTooltip:SetScript('OnTooltipSetUnit', function(self)
 			local color = ConvertRGBtoColorString(GetQuestDifficultyColor(UnitIsFriend(unit, 'player') and UnitLevel('player') or level > 0 and level or 99))
 
 			if(UnitIsPlayer(unit)) then
-				line:SetFormattedText('%s%s|r %s %s', color, level, UnitRace(unit),
-					UnitIsAFK(unit) and CHAT_FLAG_AFK or
-					UnitIsDND(unit) and CHAT_FLAG_DND or
-					not UnitIsConnected(unit) and '<DC>' or '')
+				line:SetFormattedText('%s%s|r %s %s', color, level, UnitRace(unit), UnitIsAFK(unit) and CHAT_FLAG_AFK or UnitIsDND(unit) and CHAT_FLAG_DND or '')
 			else
 				line:SetFormattedText('%s%s%s|r %s', color, level > 0 and level or '??', classifications[UnitClassification(unit)] or '', UnitCreatureFamily(unit) or UnitCreatureType(unit) or '')
 			end
