@@ -1,5 +1,8 @@
 local FONT = [=[Interface\AddOns\Flymo\semplice.ttf]=]
 local TEXTURE = [=[Interface\Tooltips\UI-Tooltip-Background]=]
+local BACKDROP = {
+	bgFile = TEXTURE,
+}
 
 local levelString = string.gsub(TOOLTIP_UNIT_LEVEL, '%%s', '.+')
 
@@ -104,7 +107,7 @@ for _, tooltip in pairs({
 	ShoppingTooltip3,
 	WorldMapTooltip,
 }) do
-	tooltip:SetBackdrop({bgFile = TEXTURE})
+	tooltip:SetBackdrop(BACKDROP)
 	tooltip:HookScript('OnSizeChanged', Update)
 	tooltip:HookScript('OnUpdate', Backdrop)
 end
