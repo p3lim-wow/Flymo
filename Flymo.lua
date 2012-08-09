@@ -81,6 +81,16 @@ GameTooltipStatusBar.bg = GameTooltipStatusBar:CreateTexture(nil, 'BACKGROUND')
 GameTooltipStatusBar.bg:SetAllPoints(GameTooltipStatusBar)
 GameTooltipStatusBar.bg:SetTexture(0.4, 0.4, 0.4)
 
+local function Update(self)
+	self:SetBackdropColor(0, 0, 0)
+
+	local name = self:GetName()
+	for index = 1, self:NumLines() do
+		_G[name .. 'TextLeft' .. index]:SetFont(FONT, 8, 'OUTLINEMONOCHROME')
+		_G[name .. 'TextRight' .. index]:SetFont(FONT, 8, 'OUTLINEMONOCHROME')
+	end
+end
+
 for _, tooltip in pairs({
 	GameTooltip,
 	ItemRefTooltip,
@@ -89,12 +99,5 @@ for _, tooltip in pairs({
 	ShoppingTooltip3
 }) do
 	tooltip:SetBackdrop({bgFile = TEXTURE})
-	tooltip:HookScript('OnShow', function(self)
-		self:SetBackdropColor(0, 0, 0)
-
-		for index = 1, self:NumLines() do
-			_G[self:GetName()..'TextLeft'..index]:SetFont(FONT, 8, 'OUTLINE')
-			_G[self:GetName()..'TextRight'..index]:SetFont(FONT, 8, 'OUTLINE')
-		end
-	end)
+	tooltip:HookScript('OnSizeChanged', Update)
 end
