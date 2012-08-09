@@ -77,9 +77,9 @@ GameTooltipStatusBar:HookScript('OnValueChanged', function(self)
 	GameTooltipStatusBar:SetStatusBarColor(color.r, color.g, color.b)
 end)
 
-GameTooltipStatusBar.bg = GameTooltipStatusBar:CreateTexture(nil, 'BACKGROUND')
-GameTooltipStatusBar.bg:SetAllPoints(GameTooltipStatusBar)
-GameTooltipStatusBar.bg:SetTexture(0.4, 0.4, 0.4)
+local background = GameTooltipStatusBar:CreateTexture(nil, 'BACKGROUND')
+background:SetAllPoints()
+background:SetTexture(1/3, 1/3, 1/3)
 
 local function Update(self)
 	local name = self:GetName()
