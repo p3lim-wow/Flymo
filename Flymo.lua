@@ -54,8 +54,8 @@ GameTooltip:SetScript('OnTooltipSetUnit', function(self)
 
 	if(not UnitIsDeadOrGhost(unit)) then
 		GameTooltipStatusBar:ClearAllPoints()
-		GameTooltipStatusBar:SetPoint('BOTTOMLEFT', 1, 1)
-		GameTooltipStatusBar:SetPoint('BOTTOMRIGHT', -1, 1)
+		GameTooltipStatusBar:SetPoint('BOTTOMLEFT', 2, 2)
+		GameTooltipStatusBar:SetPoint('BOTTOMRIGHT', -2, 2)
 	else
 		GameTooltipStatusBar:Hide()
 	end
