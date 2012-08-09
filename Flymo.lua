@@ -14,7 +14,6 @@ GameTooltip:SetScript('OnTooltipSetUnit', function(self)
 	local _, unit = self:GetUnit()
 	if(not unit) then return end
 
-	local raidicon = GetRaidTargetIndex(unit)
 	local guild = GetGuildInfo(unit)
 
 	local color
@@ -25,7 +24,7 @@ GameTooltip:SetScript('OnTooltipSetUnit', function(self)
 		color = FACTION_BAR_COLORS[UnitReaction(unit, 'player')]
 	end
 
-	GameTooltipTextLeft1:SetFormattedText('%s%s%s', raidicon and ICON_LIST[raidicon]..'22|t' or '', ConvertRGBtoColorString(color), GetUnitName(unit))
+	GameTooltipTextLeft1:SetFormattedText('%s%s', ConvertRGBtoColorString(color), GetUnitName(unit))
 
 	for index = 2, self:NumLines() do
 		local text = _G['GameTooltipTextLeft'..index]
