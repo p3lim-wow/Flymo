@@ -56,7 +56,6 @@ GameTooltip:SetScript('OnTooltipSetUnit', function(self)
 		GameTooltipStatusBar:ClearAllPoints()
 		GameTooltipStatusBar:SetPoint('BOTTOMLEFT', 1, 1)
 		GameTooltipStatusBar:SetPoint('BOTTOMRIGHT', -1, 1)
-		GameTooltipStatusBar:SetStatusBarColor(color.r, color.g, color.b)
 	end
 
 	GameTooltip:Show()
@@ -64,6 +63,19 @@ end)
 
 GameTooltipStatusBar:SetHeight(3)
 GameTooltipStatusBar:SetStatusBarTexture(TEXTURE)
+GameTooltipStatusBar:HookScript('OnValueChanged', function(self)
+	if(not UnitExists('mouseover')) then return end
+
+	local color
+	if(UnitIsPlayer('mouseover') and not UnitHasVehicleUI('mouseover')) then
+		local _, class = UnitClass('mouseover')
+		color = RAID_CLASS_COLORS[class]
+	else
+		color = FACTION_BAR_COLORS[UnitReaction('mouseover', 'player')]
+	end
+
+	GameTooltipStatusBar:SetStatusBarColor(color.r, color.g, color.b)
+end)
 
 GameTooltipStatusBar.bg = GameTooltipStatusBar:CreateTexture(nil, 'BACKGROUND')
 GameTooltipStatusBar.bg:SetAllPoints(GameTooltipStatusBar)
