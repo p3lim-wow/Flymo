@@ -96,7 +96,8 @@ for _, tooltip in pairs({
 	ItemRefTooltip,
 	ShoppingTooltip1,
 	ShoppingTooltip2,
-	ShoppingTooltip3
+	ShoppingTooltip3,
+	WorldMapTooltip,
 }) do
 	tooltip:SetBackdrop({bgFile = TEXTURE})
 	tooltip:HookScript('OnSizeChanged', Update)
