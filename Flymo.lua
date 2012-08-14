@@ -1,7 +1,7 @@
 local FONT = [=[Interface\AddOns\Flymo\semplice.ttf]=]
 local TEXTURE = [=[Interface\Tooltips\UI-Tooltip-Background]=]
 local BACKDROP = {
-	bgFile = TEXTURE,
+	bgFile = TEXTURE, insets = {top = 1, bottom = 1, left = 1, right = 1}
 }
 
 local levelString = string.gsub(TOOLTIP_UNIT_LEVEL, '%%s', '.+')
@@ -56,6 +56,7 @@ GameTooltip:SetScript('OnTooltipSetUnit', function(self)
 		GameTooltipStatusBar:ClearAllPoints()
 		GameTooltipStatusBar:SetPoint('BOTTOMLEFT', 2, 2)
 		GameTooltipStatusBar:SetPoint('BOTTOMRIGHT', -2, 2)
+		GameTooltipStatusBar:SetStatusBarColor(color.r, color.g, color.b)
 	else
 		GameTooltipStatusBar:Hide()
 	end
@@ -86,8 +87,13 @@ background:SetTexture(1/3, 1/3, 1/3)
 local function Update(self)
 	local name = self:GetName()
 	for index = 1, self:NumLines() do
-		_G[name .. 'TextLeft' .. index]:SetFont(FONT, 8, 'OUTLINEMONOCHROME')
-		_G[name .. 'TextRight' .. index]:SetFont(FONT, 8, 'OUTLINEMONOCHROME')
+		local left = _G[name .. 'TextLeft' .. index]
+		left:SetFont(FONT, 8, 'OUTLINEMONOCHROME')
+		left:SetShadowOffset(0, 0)
+
+		local right = _G[name .. 'TextRight' .. index]
+		right:SetFont(FONT, 8, 'OUTLINEMONOCHROME')
+		right:SetShadowOffset(0, 0)
 	end
 end
 
@@ -106,4 +112,5 @@ for _, tooltip in pairs({
 	tooltip:SetBackdrop(BACKDROP)
 	tooltip:HookScript('OnSizeChanged', Update)
 	tooltip:HookScript('OnUpdate', Backdrop)
+	tooltip:HookScript('OnShow', Backdrop)
 end
