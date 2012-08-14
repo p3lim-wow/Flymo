@@ -104,6 +104,9 @@ end
 for _, tooltip in pairs({
 	GameTooltip,
 	ItemRefTooltip,
+	ItemRefShoppingTooltip1,
+	ItemRefShoppingTooltip2,
+	ItemRefShoppingTooltip3,
 	ShoppingTooltip1,
 	ShoppingTooltip2,
 	ShoppingTooltip3,
