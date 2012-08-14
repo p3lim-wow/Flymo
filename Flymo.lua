@@ -84,6 +84,10 @@ local background = GameTooltipStatusBar:CreateTexture(nil, 'BACKGROUND')
 background:SetAllPoints()
 background:SetTexture(1/3, 1/3, 1/3)
 
+local function UpdateMoney(self, money)
+	self:AddDoubleLine(SELL_PRICE, GetCoinTextureString(money), nil, nil, nil, 1, 1, 1)
+end
+
 local function Update(self)
 	local name = self:GetName()
 	for index = 1, self:NumLines() do
@@ -113,6 +117,7 @@ for _, tooltip in pairs({
 	WorldMapTooltip,
 }) do
 	tooltip:SetBackdrop(BACKDROP)
+	tooltip:SetScript('OnTooltipAddMoney', UpdateMoney)
 	tooltip:HookScript('OnSizeChanged', Update)
 	tooltip:HookScript('OnUpdate', Backdrop)
 	tooltip:HookScript('OnShow', Backdrop)
