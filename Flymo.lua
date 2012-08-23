@@ -13,7 +13,7 @@ local classifications = {
 	elite = '+|r',
 }
 
-GameTooltip:SetScript('OnTooltipSetUnit', function(self)
+GameTooltip:HookScript('OnTooltipSetUnit', function(self)
 	local _, unit = self:GetUnit()
 	if(not unit) then return end
 
@@ -61,7 +61,7 @@ GameTooltip:SetScript('OnTooltipSetUnit', function(self)
 		GameTooltipStatusBar:Hide()
 	end
 
-	GameTooltip:Show()
+	self:Show()
 end)
 
 GameTooltipStatusBar:SetHeight(3)
@@ -105,17 +105,18 @@ local function Backdrop(self)
 	self:SetBackdropColor(0, 0, 0)
 end
 
-for _, tooltip in pairs({
-	GameTooltip,
-	ItemRefTooltip,
-	ItemRefShoppingTooltip1,
-	ItemRefShoppingTooltip2,
-	ItemRefShoppingTooltip3,
-	ShoppingTooltip1,
-	ShoppingTooltip2,
-	ShoppingTooltip3,
-	WorldMapTooltip,
+for _, name in pairs({
+	'GameTooltip',
+	'ItemRefTooltip',
+	'ItemRefShoppingTooltip1',
+	'ItemRefShoppingTooltip2',
+	'ItemRefShoppingTooltip3',
+	'ShoppingTooltip1',
+	'ShoppingTooltip2',
+	'ShoppingTooltip3',
+	'WorldMapTooltip',
 }) do
+	local tooltip = _G[name]
 	tooltip:SetBackdrop(BACKDROP)
 	tooltip:SetScript('OnTooltipAddMoney', UpdateMoney)
 	tooltip:HookScript('OnSizeChanged', Update)
