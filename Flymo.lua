@@ -41,13 +41,20 @@ GameTooltip:HookScript('OnTooltipSetUnit', function(self)
 			local color = ConvertRGBtoColorString(GetQuestDifficultyColor(UnitIsFriend(unit, 'player') and UnitLevel('player') or level > 0 and level or 99))
 
 			if(UnitIsPlayer(unit)) then
-				line:SetFormattedText('%s%s|r %s %s', color, level, UnitRace(unit), UnitIsAFK(unit) and CHAT_FLAG_AFK or UnitIsDND(unit) and CHAT_FLAG_DND or '')
+				local factionColor
+				if(UnitFactionGroup(unit) ~= UnitFactionGroup('player')) then
+					factionColor = 'ff3300'
+				else
+					factionColor = 'ffffff'
+				end
+
+				line:SetFormattedText('%s%s|r |cff%s%s|r %s', color, level, factionColor, UnitRace(unit), UnitIsAFK(unit) and CHAT_FLAG_AFK or UnitIsDND(unit) and CHAT_FLAG_DND or '')
 			else
 				line:SetFormattedText('%s%s%s|r %s', color, level > 0 and level or '??', classifications[UnitClassification(unit)] or '', UnitCreatureFamily(unit) or UnitCreatureType(unit) or '')
 			end
 		end
 
-		if(string.find(text, PVP)) then
+		if(string.find(text, PVP) or string.find(text, FACTION_ALLIANCE) or string.find(text, FACTION_HORDE)) then
 			line:Hide()
 		end
 	end
