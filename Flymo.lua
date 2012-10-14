@@ -38,7 +38,7 @@ GameTooltip:HookScript('OnTooltipSetUnit', function(self)
 
 		if(string.find(text, levelString)) then
 			local level = UnitLevel(unit)
-			local color = ConvertRGBtoColorString(GetQuestDifficultyColor(UnitIsFriend(unit, 'player') and UnitLevel('player') or level > 0 and level or 99))
+			local levelColor = ConvertRGBtoColorString(GetQuestDifficultyColor(UnitIsFriend(unit, 'player') and UnitLevel('player') or level > 0 and level or 99))
 
 			if(UnitIsPlayer(unit)) then
 				local factionColor
@@ -48,9 +48,19 @@ GameTooltip:HookScript('OnTooltipSetUnit', function(self)
 					factionColor = 'ffffff'
 				end
 
-				line:SetFormattedText('%s%s|r |cff%s%s|r %s', color, level, factionColor, UnitRace(unit), UnitIsAFK(unit) and CHAT_FLAG_AFK or UnitIsDND(unit) and CHAT_FLAG_DND or '')
+				line:SetFormattedText('%s%s|r |cff%s%s|r %s', levelColor, level, factionColor, UnitRace(unit), UnitIsAFK(unit) and CHAT_FLAG_AFK or UnitIsDND(unit) and CHAT_FLAG_DND or '')
 			else
-				line:SetFormattedText('%s%s%s|r %s', color, level > 0 and level or '??', classifications[UnitClassification(unit)] or '', UnitCreatureFamily(unit) or UnitCreatureType(unit) or '')
+				local creature
+				if(UnitIsWildBattlePet(unit) or UnitIsBattlePetCompanion(unit)) then
+					level = UnitBattlePetLevel(unit)
+					levelColor = '|cffffff00'
+
+					creature = _G['BATTLE_PET_NAME_' .. UnitBattlePetType(unit)]
+				else
+					creature = UnitCreatureFamily(unit) or UnitCreatureType(unit) or ''
+				end
+
+				line:SetFormattedText('%s%s%s|r %s', levelColor, level > 0 and level or '??', classifications[UnitClassification(unit)] or '', creature)
 			end
 		end
 
