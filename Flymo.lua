@@ -22,7 +22,7 @@ GameTooltip:HookScript('OnTooltipSetUnit', function(self)
 		local _, class = UnitClass(unit)
 		color = RAID_CLASS_COLORS[class]
 	else
-		color = FACTION_BAR_COLORS[UnitReaction(unit, 'player')]
+		color = FACTION_BAR_COLORS[UnitReaction(unit, 'player') or 5]
 	end
 
 	GameTooltipTextLeft1:SetFormattedText('%s%s', ConvertRGBtoColorString(color), GetUnitName(unit))
