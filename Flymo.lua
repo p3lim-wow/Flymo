@@ -48,7 +48,7 @@ GameTooltip:HookScript('OnTooltipSetUnit', function(self)
 					factionColor = 'ffffff'
 				end
 
-				line:SetFormattedText('%s%s|r |cff%s%s|r %s', levelColor, level, factionColor, UnitRace(unit), UnitIsAFK(unit) and CHAT_FLAG_AFK or UnitIsDND(unit) and CHAT_FLAG_DND or '')
+				line:SetFormattedText('%s%s|r |cff%s%s|r %s', levelColor, level > 0 and level or '??', factionColor, UnitRace(unit), UnitIsAFK(unit) and CHAT_FLAG_AFK or UnitIsDND(unit) and CHAT_FLAG_DND or '')
 			else
 				local creature
 				if(UnitIsWildBattlePet(unit) or UnitIsBattlePetCompanion(unit)) then
