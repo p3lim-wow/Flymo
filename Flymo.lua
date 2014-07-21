@@ -1,7 +1,8 @@
 local FONT = [=[Interface\AddOns\Flymo\semplice.ttf]=]
 local TEXTURE = [=[Interface\Tooltips\UI-Tooltip-Background]=]
 local BACKDROP = {
-	bgFile = TEXTURE, insets = {top = 1, bottom = 1, left = 1, right = 1}
+	bgFile = TEXTURE,
+	insets = {top = 1, bottom = 1, left = 1, right = 1}
 }
 
 local levelString = string.gsub(TOOLTIP_UNIT_LEVEL, '%%s', '.+')
