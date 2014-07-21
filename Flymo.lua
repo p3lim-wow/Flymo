@@ -122,7 +122,7 @@ local function Backdrop(self)
 	self:SetBackdropColor(0, 0, 0)
 end
 
-for _, name in pairs({
+for _, name in next, {
 	'GameTooltip',
 	'ItemRefTooltip',
 	'ItemRefShoppingTooltip1',
@@ -132,7 +132,7 @@ for _, name in pairs({
 	'ShoppingTooltip2',
 	'ShoppingTooltip3',
 	'WorldMapTooltip',
-}) do
+} do
 	local tooltip = _G[name]
 	tooltip:SetBackdrop(BACKDROP)
 	tooltip:SetScript('OnTooltipAddMoney', UpdateMoney)
