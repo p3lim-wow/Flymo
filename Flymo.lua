@@ -26,7 +26,7 @@ GameTooltip:HookScript('OnTooltipSetUnit', function(self)
 		color = FACTION_BAR_COLORS[UnitReaction(unit, 'player') or 5]
 	end
 
-	GameTooltipTextLeft1:SetFormattedText('%s%s', ConvertRGBtoColorString(color), GetUnitName(unit))
+	GameTooltipTextLeft1:SetFormattedText('%s%s', ConvertRGBtoColorString(color), GetUnitName(unit) or GameTooltipTextLeft1:GetText())
 
 	local guild = GetGuildInfo(unit)
 	for index = 2, self:NumLines() do
