@@ -1,4 +1,4 @@
-local FONT = [=[Interface\AddOns\Flymo\semplice.ttf]=]
+local FONT = STANDARD_GAME_FONT
 local TEXTURE = [=[Interface\Tooltips\UI-Tooltip-Background]=]
 local BACKDROP = {
 	bgFile = TEXTURE,
