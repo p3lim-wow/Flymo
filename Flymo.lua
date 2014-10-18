@@ -1,4 +1,4 @@
-local FONT = STANDARD_TEXT_FONT
+local FONT = [=[Interface\AddOns\Flymo\semplice.ttf]=]
 local TEXTURE = [=[Interface\Tooltips\UI-Tooltip-Background]=]
 local BACKDROP = {
 	bgFile = TEXTURE,
@@ -110,11 +110,11 @@ local function Update(self)
 	local name = self:GetName()
 	for index = 1, self:NumLines() do
 		local left = _G[name .. 'TextLeft' .. index]
-		left:SetFont(FONT, 12, 'THINOUTLINE')
+		left:SetFont(FONT, 8, 'OUTLINEMONOCHROME')
 		left:SetShadowOffset(0, 0)
 
 		local right = _G[name .. 'TextRight' .. index]
-		right:SetFont(FONT, 12, 'THINOUTLINE')
+		right:SetFont(FONT, 8, 'OUTLINEMONOCHROME')
 		right:SetShadowOffset(0, 0)
 	end
 end
