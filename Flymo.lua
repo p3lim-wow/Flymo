@@ -128,8 +128,10 @@ for _, name in next, {
 	'ItemRefTooltip',
 	'ItemRefShoppingTooltip1',
 	'ItemRefShoppingTooltip2',
+	'ItemRefShoppingTooltip3',
 	'ShoppingTooltip1',
 	'ShoppingTooltip2',
+	'ShoppingTooltip3',
 	'WorldMapTooltip',
 } do
 	local tooltip = _G[name]
