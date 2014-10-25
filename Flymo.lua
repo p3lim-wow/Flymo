@@ -1,4 +1,4 @@
-local FONT = STANDARD_GAME_FONT
+local FONT = STANDARD_TEXT_FONT
 local TEXTURE = [=[Interface\Tooltips\UI-Tooltip-Background]=]
 local BACKDROP = {
 	bgFile = TEXTURE,
