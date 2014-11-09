@@ -1,4 +1,4 @@
-local FONT = [=[Interface\AddOns\Flymo\semplice.ttf]=]
+local FONT = STANDARD_TEXT_FONT
 local TEXTURE = [=[Interface\Tooltips\UI-Tooltip-Background]=]
 local BACKDROP = {
 	bgFile = TEXTURE,
@@ -110,11 +110,11 @@ local function Update(self)
 	local name = self:GetName()
 	for index = 1, self:NumLines() do
 		local left = _G[name .. 'TextLeft' .. index]
-		left:SetFont(FONT, 8, 'OUTLINEMONOCHROME')
+		left:SetFont(FONT, 12, 'THINOUTLINE')
 		left:SetShadowOffset(0, 0)
 
 		local right = _G[name .. 'TextRight' .. index]
-		right:SetFont(FONT, 8, 'OUTLINEMONOCHROME')
+		right:SetFont(FONT, 12, 'THINOUTLINE')
 		right:SetShadowOffset(0, 0)
 	end
 end
@@ -128,11 +128,11 @@ for _, name in next, {
 	'ItemRefTooltip',
 	'ItemRefShoppingTooltip1',
 	'ItemRefShoppingTooltip2',
-	'ItemRefShoppingTooltip3',
 	'ShoppingTooltip1',
 	'ShoppingTooltip2',
-	'ShoppingTooltip3',
 	'WorldMapTooltip',
+	-- 'BattlePetTooltip',
+	-- 'GarrisonFollowerTooltip',
 } do
 	local tooltip = _G[name]
 	tooltip:SetBackdrop(BACKDROP)
@@ -141,3 +141,11 @@ for _, name in next, {
 	tooltip:HookScript('OnUpdate', Backdrop)
 	tooltip:HookScript('OnShow', Backdrop)
 end
+
+-----------------------------
+--  Modify default position
+hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
+  tooltip:SetOwner(parent, "ANCHOR_NONE")
+  tooltip:ClearAllPoints()
+  tooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -10, 250)
+end)
