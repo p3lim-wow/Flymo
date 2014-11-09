@@ -131,6 +131,8 @@ for _, name in next, {
 	'ShoppingTooltip1',
 	'ShoppingTooltip2',
 	'WorldMapTooltip',
+	-- 'BattlePetTooltip',
+	-- 'GarrisonFollowerTooltip',
 } do
 	local tooltip = _G[name]
 	tooltip:SetBackdrop(BACKDROP)
@@ -139,3 +141,11 @@ for _, name in next, {
 	tooltip:HookScript('OnUpdate', Backdrop)
 	tooltip:HookScript('OnShow', Backdrop)
 end
+
+-----------------------------
+--  Modify default position
+hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
+  tooltip:SetOwner(parent, "ANCHOR_NONE")
+  tooltip:ClearAllPoints()
+  tooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -10, 250)
+end)
